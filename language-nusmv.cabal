@@ -1,0 +1,17 @@
+Name:		language-nusmv
+Version:	0.1
+Author:		Henning Günther <guenther@iti.cs.tu-bs.de>
+Description:	A parser for the input language of NuSMV
+License:	BSD3
+Cabal-Version:	>= 1.2
+Build-Type:	Simple
+
+Library
+  Build-Depends: base, array, pretty
+  Exposed-Modules:
+    Language.NuSMV.Lexer
+    Language.NuSMV.Tokens
+    Language.NuSMV.Parser
+    Language.NuSMV.Syntax
+    Language.NuSMV.Misc
+    Language.NuSMV.Pretty
