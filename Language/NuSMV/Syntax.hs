@@ -39,10 +39,10 @@ data BasicExpr = ConstExpr Constant
                deriving Show
 
 data BinOp = OpEq | OpNeq
-           | OpLT
+           | OpLT | OpLTE | OpGT | OpGTE
            | OpAnd | OpOr | OpImpl | OpEquiv
            | OpUnion | OpIn
-           | OpPlus | OpMod
+           | OpPlus | OpMinus | OpMod
            | CTLAU | CTLEU
            deriving Show
 
@@ -61,7 +61,10 @@ data ModuleElement = VarDeclaration [(String,TypeSpecifier)]
                    | InitConstraint BasicExpr
                    | CTLSpec BasicExpr
                    | LTLSpec BasicExpr
+                   | ComputeSpec ComputeType BasicExpr BasicExpr
                    deriving Show
+
+data ComputeType = ComputeMIN | ComputeMAX deriving Show
 
 data ComplexIdentifier = ComplexId { idBase :: Maybe String
                                    , idNavigation :: [Either String BasicExpr]

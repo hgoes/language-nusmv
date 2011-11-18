@@ -19,6 +19,7 @@ import Language.NuSMV.Syntax
   boolean        { Key Keyboolean }
   case           { Key Keycase }
   COMPASSION     { Key KeyCOMPASSION }
+  COMPUTE        { Key KeyCOMPUTE }
   DEFINE         { Key KeyDEFINE }
   EF             { Key KeyEF }
   esac           { Key Keyesac }
@@ -32,6 +33,8 @@ import Language.NuSMV.Syntax
   INIT           { Key KeyINIT }
   JUSTICE        { Key KeyJUSTICE }
   LTLSPEC        { Key KeyLTLSPEC }
+  MAX            { Key KeyMAX }
+  MIN            { Key KeyMIN }
   mod            { Key Keymod }
   MODULE         { Key KeyMODULE }
   next           { Key Keynext }
@@ -66,7 +69,11 @@ import Language.NuSMV.Syntax
   "|"            { Sym LOr }
   "!"            { Sym LNot }
   "+"            { Sym Plus }
+  "-"            { Sym Minus }
   "<"            { Sym T.LT }
+  "<="           { Sym T.LTE }
+  ">"            { Sym T.GT }
+  ">="           { Sym T.GTE }
   "->"           { Sym LImpl }
   "!="           { Sym LNEq }
   "<->"          { Sym LEquiv }
@@ -76,10 +83,10 @@ import Language.NuSMV.Syntax
 %left AG AF AX EX EF
 %left "!"
 %left mod
-%left "+"
+%left "+" "-"
 %left union
 %left in
-%left "=" "!=" "<"
+%left "=" "!=" "<" "<=" ">" ">="
 %left "&"
 %left "|"
 %left "<->"
@@ -102,14 +109,15 @@ module_parameters : identifier "," module_parameters { $1:$3 }
 module_body : module_element module_body { $1:$2 }
             |                            { [] }
 
-module_element : var_declaration     { $1 }
-               | define_declaration  { $1 }
-               | assign_constraint   { $1 }
-               | fairness_constraint { $1 }
-               | ctl_specification   { $1 }
-               | ltl_specification   { $1 }
-               | trans_constraint    { $1 }
-               | init_constraint     { $1 }
+module_element : var_declaration       { $1 }
+               | define_declaration    { $1 }
+               | assign_constraint     { $1 }
+               | fairness_constraint   { $1 }
+               | ctl_specification     { $1 }
+               | ltl_specification     { $1 }
+               | trans_constraint      { $1 }
+               | init_constraint       { $1 }
+               | compute_specification { $1 }
 
 var_declaration : VAR var_list { VarDeclaration $2 }
 
@@ -131,6 +139,11 @@ trans_constraint : TRANS basic_expr opt_semi { TransConstraint $2 }
 init_constraint : INIT basic_expr opt_semi { InitConstraint $2 }
 
 define_declaration : DEFINE define_body { DefineDeclaration $2 }
+
+compute_specification : COMPUTE compute_expr opt_semi { $2 }
+
+compute_expr : MIN "[" basic_expr "," basic_expr "]" { ComputeSpec ComputeMIN $3 $5 }
+             | MAX "[" basic_expr "," basic_expr "]" { ComputeSpec ComputeMAX $3 $5 }
 
 var_list : identifier ":" type_specifier ";" var_list { ($1,$3):$5 }
          |                                            { [] }
@@ -183,8 +196,12 @@ basic_expr : constant                          { ConstExpr $1 }
            | basic_expr "->" basic_expr        { BinExpr OpImpl $1 $3 }
            | basic_expr "<->" basic_expr       { BinExpr OpEquiv $1 $3 }
            | basic_expr "+" basic_expr         { BinExpr OpPlus $1 $3 }
+           | basic_expr "-" basic_expr         { BinExpr OpMinus $1 $3 }
            | basic_expr mod basic_expr         { BinExpr OpMod $1 $3 }
            | basic_expr "<" basic_expr         { BinExpr OpLT $1 $3 }
+           | basic_expr "<=" basic_expr        { BinExpr OpLTE $1 $3 }
+           | basic_expr ">" basic_expr         { BinExpr OpGT $1 $3 }
+           | basic_expr ">=" basic_expr        { BinExpr OpGTE $1 $3 }
            | "!" basic_expr                    { UnExpr OpNot $2 }
            | basic_expr union basic_expr       { BinExpr OpUnion $1 $3 }
            | basic_expr in basic_expr          { BinExpr OpIn $1 $3 }

@@ -19,6 +19,7 @@ tokens :-
   boolean                                                           { key Keyboolean }
   case                                                              { key Keycase }
   COMPASSION                                                        { key KeyCOMPASSION }
+  COMPUTE                                                           { key KeyCOMPUTE }
   DEFINE                                                            { key KeyDEFINE }
   EF                                                                { key KeyEF }
   esac                                                              { key Keyesac }
@@ -31,6 +32,8 @@ tokens :-
   init                                                              { key Keyinit }
   INIT                                                              { key KeyINIT }
   LTLSPEC                                                           { key KeyLTLSPEC }
+  MAX                                                               { key KeyMAX }
+  MIN                                                               { key KeyMIN }
   mod                                                               { key Keymod }
   MODULE                                                            { key KeyMODULE }
   next                                                              { key Keynext }
@@ -68,8 +71,12 @@ tokens :-
   "!"                                                               { sym LNot }
   "."                                                               { sym Dot }
   "<->"                                                             { sym LEquiv }
+  "<="                                                              { sym T.LTE }
   "<"                                                               { sym T.LT }
+  ">="                                                              { sym T.GTE }
+  ">"                                                               { sym T.GT }
   "+"                                                               { sym Plus }
+  "-"                                                               { sym Minus }
   "->"                                                              { sym LImpl }
 
 {

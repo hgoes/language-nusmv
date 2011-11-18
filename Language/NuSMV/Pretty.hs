@@ -46,7 +46,10 @@ prettyModuleElement (CTLSpec expr)
   = text "CTLSPEC" $+$ nest 2 (prettyBasicExpr 0 expr)
 prettyModuleElement (LTLSpec expr)
   = text "LTLSPEC" $+$ nest 2 (prettyBasicExpr 0 expr)
-prettyModuleElement _ = empty
+prettyModuleElement (ComputeSpec tp e1 e2)
+  = text "COMPUTE" <+> (case tp of
+                           ComputeMIN -> text "MIN"
+                           ComputeMAX -> text "MAX") <+> (brackets $ (prettyBasicExpr 0 e1) <> comma <+> (prettyBasicExpr 0 e2))
 
 prettyType :: TypeSpecifier -> Doc
 prettyType (SimpleType tp) = prettySimpleType tp
@@ -56,7 +59,6 @@ prettyType (ModuleType name args) = text name <> (case args of
 prettyType (ProcessType name args) = text "process" <+> text name <> (case args of
                                                                          [] -> empty
                                                                          _ -> parens $ hsep $ punctuate comma $ fmap (prettyBasicExpr 0) args)
-prettyType _ = empty
 
 prettySimpleType :: SimpleTypeSpecifier -> Doc
 prettySimpleType TypeBool = text "boolean"
@@ -101,12 +103,14 @@ prettyBasicExpr p (CaseExpr cases)
                                         colon <+>
                                         (prettyBasicExpr 0 res) <> semi) cases)
     $+$ text "esac"
-prettyBasicExpr _ _ = empty
 
 prettyBinOp :: BinOp -> Doc -> Doc -> Doc
 prettyBinOp OpEq l r = l <+> char '=' <+> r
 prettyBinOp OpNeq l r = l <+> text "!=" <+> r
-prettyBinOp OpLT l r = l <+> char '>' <+> r
+prettyBinOp OpLT l r = l <+> char '<' <+> r
+prettyBinOp OpLTE l r = l <+> text "<=" <+> r
+prettyBinOp OpGT l r = l <+> char '>' <+> r
+prettyBinOp OpGTE l r = l <+> text ">=" <+> r
 prettyBinOp OpAnd l r = l <+> char '&' <+> r
 prettyBinOp OpOr l r = l <+> char '|' <+> r
 prettyBinOp OpImpl l r = l <+> text "->" <+> r
@@ -114,6 +118,7 @@ prettyBinOp OpEquiv l r = l <+> text "<->" <+> r
 prettyBinOp OpUnion l r = l <+> text "union" <+> r
 prettyBinOp OpIn l r = l <+> text "in" <+> r
 prettyBinOp OpPlus l r = l <+> char '+' <+> r
+prettyBinOp OpMinus l r = l <+> char '-' <+> r
 prettyBinOp OpMod l r = l <+> text "mod" <+> r
 prettyBinOp CTLAU l r = char 'A' <> brackets (l <+> char 'U' <+> r)
 prettyBinOp CTLEU l r = char 'E' <> brackets (l <+> char 'U' <+> r)
@@ -136,6 +141,9 @@ binOpPrecedence op = case op of
   OpEq -> 6
   OpNeq -> 6
   OpLT -> 6
+  OpLTE -> 6
+  OpGT -> 6
+  OpGTE -> 6
   OpAnd -> 5
   OpOr -> 4
   OpImpl -> 1
@@ -143,6 +151,7 @@ binOpPrecedence op = case op of
   OpUnion -> 8
   OpIn -> 7
   OpPlus -> 10
+  OpMinus -> 10
   OpMod -> 11
   _ -> 0
 
