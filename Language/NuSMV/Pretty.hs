@@ -122,6 +122,8 @@ prettyBinOp OpMinus l r = l <+> char '-' <+> r
 prettyBinOp OpMod l r = l <+> text "mod" <+> r
 prettyBinOp CTLAU l r = char 'A' <> brackets (l <+> char 'U' <+> r)
 prettyBinOp CTLEU l r = char 'E' <> brackets (l <+> char 'U' <+> r)
+prettyBinOp LTLU l r = l <+> char 'U' <+> r
+prettyBinOp LTLV l r = l <+> char 'V' <+> r
 
 prettyUnOp :: UnOp -> Doc -> Doc
 prettyUnOp OpNot e = char '!' <> e
