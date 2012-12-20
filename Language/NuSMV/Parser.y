@@ -28,6 +28,7 @@ import Language.NuSMV.Syntax
   F              { Key KeyF }
   FAIRNESS       { Key KeyFAIRNESS }
   FALSE          { Key KeyFALSE }                 
+  G              { Key KeyG }
   in             { Key Keyin }
   init           { Key Keyinit }
   INIT           { Key KeyINIT }
@@ -79,7 +80,7 @@ import Language.NuSMV.Syntax
   "<->"          { Sym LEquiv }
                  
 %left "[" "]" ","
-%left X F O
+%left X F O G
 %left AG AF AX EX EF
 %left "!"
 %left mod
@@ -217,6 +218,7 @@ basic_expr : constant                          { ConstExpr $1 }
            | A "[" basic_expr U basic_expr "]" { BinExpr CTLAU $3 $5 }
            | E "[" basic_expr U basic_expr "]" { BinExpr CTLEU $3 $5 }
            | F basic_expr                      { UnExpr LTLF $2 }
+           | G basic_expr                      { UnExpr LTLG $2 }
            | X basic_expr                      { UnExpr LTLX $2 }
            | O basic_expr                      { UnExpr LTLO $2 }
 

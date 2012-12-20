@@ -50,7 +50,7 @@ data UnOp = OpNot
           | OpNext
           | OpToInt
           | CTLAG | CTLAF | CTLAX | CTLEX | CTLEF
-          | LTLX | LTLF | LTLO
+          | LTLX | LTLF | LTLG | LTLO
           deriving Show
 
 data ModuleElement = VarDeclaration [(String,TypeSpecifier)]

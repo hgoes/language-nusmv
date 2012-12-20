@@ -28,6 +28,7 @@ tokens :-
   F                                                                 { key KeyF }
   FAIRNESS                                                          { key KeyFAIRNESS }
   FALSE                                                             { key KeyFALSE }
+  G                                                                 { key KeyG }
   in                                                                { key Keyin }
   init                                                              { key Keyinit }
   INIT                                                              { key KeyINIT }
