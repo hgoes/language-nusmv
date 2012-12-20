@@ -44,6 +44,7 @@ data BinOp = OpEq | OpNeq
            | OpUnion | OpIn
            | OpPlus | OpMinus | OpMod
            | CTLAU | CTLEU
+           | LTLU | LTLV 
            deriving Show
 
 data UnOp = OpNot
