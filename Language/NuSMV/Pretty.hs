@@ -28,7 +28,7 @@ prettyModuleElement (AssignConstraint assgn)
                                NormalAssign -> prettyId ci
                                InitAssign -> text "init" <> parens (prettyId ci)
                                NextAssign -> text "next" <> parens (prettyId ci)
-                           ) <+> text ":=" <+> prettyBasicExpr 0 e)
+                           ) <+> text ":=" <+> prettyBasicExpr 0 e <> semi)
             assgn)
 prettyModuleElement (DefineDeclaration def)
   = text "DEFINE" $+$
