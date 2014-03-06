@@ -80,19 +80,19 @@ import Language.NuSMV.Syntax
   "!="           { Sym LNEq }
   "<->"          { Sym LEquiv }
                  
-%left "[" "]" ","
-%left X F O G
 %left AG AF AX EX EF
-%left "!"
-%left mod
-%left "+" "-"
-%left union
-%left in
-%left "=" "!=" "<" "<=" ">" ">="
-%left "&"
-%left "|"
-%left "<->"
+%left X F O G
 %right "->"
+%left "<->"
+%left "|"
+%left "&"
+%left "=" "!=" "<" "<=" ">" ">="
+%left in
+%left union
+%left "+" "-"
+%left mod
+%left "!"
+%left "[" "]" ","
 
 %%
 
