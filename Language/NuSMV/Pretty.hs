@@ -135,9 +135,10 @@ prettyUnOp CTLAX e = text "AX" <+> e
 prettyUnOp CTLEX e = text "EX" <+> e
 prettyUnOp CTLEF e = text "EF" <+> e
 prettyUnOp CTLEG e = text "EG" <+> e
-prettyUnOp LTLX e = text "E" <+> e
+prettyUnOp LTLX e = text "X" <+> e
 prettyUnOp LTLF e = text "F" <+> e
 prettyUnOp LTLO e = text "O" <+> e
+prettyUnOp LTLG e = text "G" <+> e
 
 binOpPrecedence :: BinOp -> Integer
 binOpPrecedence op = case op of
