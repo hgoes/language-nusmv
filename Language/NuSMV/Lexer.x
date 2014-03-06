@@ -23,6 +23,7 @@ tokens :-
   DEFINE                                                            { key KeyDEFINE }
   EF                                                                { key KeyEF }
   esac                                                              { key Keyesac }
+  EG                                                                { key KeyEG }
   EX                                                                { key KeyEX }
   E                                                                 { key KeyE }
   F                                                                 { key KeyF }

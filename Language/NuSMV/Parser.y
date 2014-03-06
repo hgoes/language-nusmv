@@ -22,6 +22,7 @@ import Language.NuSMV.Syntax
   COMPUTE        { Key KeyCOMPUTE }
   DEFINE         { Key KeyDEFINE }
   EF             { Key KeyEF }
+  EG             { Key KeyEG }
   esac           { Key Keyesac }
   EX             { Key KeyEX }
   E              { Key KeyE }
