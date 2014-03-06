@@ -20,9 +20,11 @@ tokens :-
   case                                                              { key Keycase }
   COMPASSION                                                        { key KeyCOMPASSION }
   COMPUTE                                                           { key KeyCOMPUTE }
+  CTLSPEC                                                           { key KeySPEC }
   DEFINE                                                            { key KeyDEFINE }
   EF                                                                { key KeyEF }
   esac                                                              { key Keyesac }
+  EG                                                                { key KeyEG }
   EX                                                                { key KeyEX }
   E                                                                 { key KeyE }
   F                                                                 { key KeyF }

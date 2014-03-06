@@ -50,7 +50,7 @@ data BinOp = OpEq | OpNeq
 data UnOp = OpNot
           | OpNext
           | OpToInt
-          | CTLAG | CTLAF | CTLAX | CTLEX | CTLEF
+          | CTLAG | CTLAF | CTLAX | CTLEX | CTLEG | CTLEF
           | LTLX | LTLF | LTLG | LTLO
           deriving Show
 

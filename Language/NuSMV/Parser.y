@@ -22,6 +22,7 @@ import Language.NuSMV.Syntax
   COMPUTE        { Key KeyCOMPUTE }
   DEFINE         { Key KeyDEFINE }
   EF             { Key KeyEF }
+  EG             { Key KeyEG }
   esac           { Key Keyesac }
   EX             { Key KeyEX }
   E              { Key KeyE }
@@ -215,6 +216,7 @@ basic_expr : constant                          { ConstExpr $1 }
            | AX basic_expr                     { UnExpr CTLAX $2 }
            | EF basic_expr                     { UnExpr CTLEF $2 }
            | EX basic_expr                     { UnExpr CTLEX $2 }
+           | EG basic_expr                     { UnExpr CTLEG $2 }
            | A "[" basic_expr U basic_expr "]" { BinExpr CTLAU $3 $5 }
            | E "[" basic_expr U basic_expr "]" { BinExpr CTLEU $3 $5 }
            | F basic_expr                      { UnExpr LTLF $2 }
