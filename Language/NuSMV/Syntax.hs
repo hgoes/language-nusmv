@@ -56,6 +56,7 @@ data UnOp = OpNot
 
 data ModuleElement = VarDeclaration [(String,TypeSpecifier)]
                    | DefineDeclaration [(String,BasicExpr)]
+                   | ArrayDefine String ArrayExpression
                    | AssignConstraint [(AssignType,ComplexIdentifier,BasicExpr)]
                    | FairnessConstraint FairnessType BasicExpr
                    | TransConstraint BasicExpr
@@ -64,6 +65,10 @@ data ModuleElement = VarDeclaration [(String,TypeSpecifier)]
                    | LTLSpec BasicExpr
                    | ComputeSpec ComputeType BasicExpr BasicExpr
                    deriving Show
+
+data ArrayExpression = ArrayContents [BasicExpr]
+                     | ArrayExpressions [ArrayExpression]
+                     deriving Show
 
 data ComputeType = ComputeMIN | ComputeMAX deriving Show
 

@@ -33,6 +33,8 @@ prettyModuleElement (AssignConstraint assgn)
 prettyModuleElement (DefineDeclaration def)
   = text "DEFINE" $+$
     nest 2 (vcat $ fmap (\(name,expr) -> text name <+> text ":=" <+> prettyBasicExpr 0 expr) def)
+prettyModuleElement (ArrayDefine name expr)
+  = text "DEFINE" <+> text name <+> text ":=" <+> prettyArrayExpr expr <> semi
 prettyModuleElement (FairnessConstraint ft expr)
   = (case ft of
         Justice -> text "JUSTICE"
@@ -103,6 +105,12 @@ prettyBasicExpr p (CaseExpr cases)
                                         colon <+>
                                         (prettyBasicExpr 0 res) <> semi) cases)
     $+$ text "esac"
+
+prettyArrayExpr :: ArrayExpression -> Doc
+prettyArrayExpr (ArrayContents lst)
+  = brackets $ hsep $ punctuate comma $ fmap (prettyBasicExpr 0) lst
+prettyArrayExpr (ArrayExpressions lst)
+  = brackets $ hsep $ punctuate comma $ fmap prettyArrayExpr lst
 
 prettyBinOp :: BinOp -> Doc -> Doc -> Doc
 prettyBinOp OpEq l r = l <+> char '=' <+> r

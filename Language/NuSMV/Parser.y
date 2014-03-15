@@ -112,6 +112,7 @@ module_body : module_element module_body { $1:$2 }
             |                            { [] }
 
 module_element : var_declaration       { $1 }
+               | array_define { $1 }
                | define_declaration    { $1 }
                | assign_constraint     { $1 }
                | fairness_constraint   { $1 }
@@ -141,6 +142,17 @@ trans_constraint : TRANS basic_expr opt_semi { TransConstraint $2 }
 init_constraint : INIT basic_expr opt_semi { InitConstraint $2 }
 
 define_declaration : DEFINE define_body { DefineDeclaration $2 }
+
+array_define : DEFINE identifier ":=" array_expression ";" { ArrayDefine $2 $4 }
+
+array_expression : "[" basic_expr_list "]" { ArrayContents $2 }
+                 | "[" array_expr_list "]" { ArrayExpressions $2 }
+
+array_expr_list : array_expression { [$1] }
+                | array_expression "," array_expr_list { $1:$3 }
+
+array_contents : basic_expr { [$1] }
+               | basic_expr "," array_contents { $1:$3 }
 
 compute_specification : COMPUTE compute_expr opt_semi { $2 }
 
