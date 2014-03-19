@@ -150,18 +150,18 @@ prettyUnOp LTLG e = text "G" <+> e
 
 binOpPrecedence :: BinOp -> Integer
 binOpPrecedence op = case op of
-  OpEq -> 7
-  OpNeq -> 7
-  OpLT -> 7
-  OpLTE -> 7
-  OpGT -> 7
-  OpGTE -> 7
+  OpEq -> 8
+  OpNeq -> 8
+  OpLT -> 8
+  OpLTE -> 8
+  OpGT -> 8
+  OpGTE -> 8
   OpAnd -> 5
   OpOr -> 4
   OpImpl -> 1
   OpEquiv -> 2
   OpUnion -> 9
-  OpIn -> 7
+  OpIn -> 8
   OpPlus -> 10
   OpMinus -> 10
   OpMod -> 11
@@ -172,6 +172,10 @@ binOpPrecedence op = case op of
 unOpPrecedence :: UnOp -> Integer
 unOpPrecedence op = case op of
   OpNot -> 14
+  LTLX -> 7
+  LTLF -> 7
+  LTLO -> 7
+  LTLG -> 7
   _ -> 0
 
 prettyConstant :: Constant -> Doc
