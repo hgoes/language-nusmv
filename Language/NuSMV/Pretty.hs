@@ -105,6 +105,8 @@ prettyBasicExpr p (CaseExpr cases)
                                         colon <+>
                                         (prettyBasicExpr 0 res) <> semi) cases)
     $+$ text "esac"
+prettyBasicExpr _ (IdxExpr expr idx)
+  = prettyBasicExpr 20 expr <> brackets (prettyBasicExpr 0 idx)
 
 prettyArrayExpr :: ArrayExpression -> Doc
 prettyArrayExpr (ArrayContents lst)

@@ -36,6 +36,7 @@ data BasicExpr = ConstExpr Constant
                | UnExpr UnOp BasicExpr
                | CaseExpr [(BasicExpr,BasicExpr)]
                | SetExpr [BasicExpr]
+               | IdxExpr BasicExpr BasicExpr
                deriving Show
 
 data BinOp = OpEq | OpNeq
