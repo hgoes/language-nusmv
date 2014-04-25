@@ -87,6 +87,9 @@ prettyId i = (case idBase i of
 prettyBasicExpr :: Integer -> BasicExpr -> Doc
 prettyBasicExpr _ (ConstExpr c) = prettyConstant c
 prettyBasicExpr _ (IdExpr i) = prettyId i
+prettyBasicExpr p (TernExpr c a b)
+ = (if p >= 3 then parens else id) $
+    (prettyBasicExpr 3 c) <+> char '?' <+> (prettyBasicExpr 3 a) <+> char ':' <+> (prettyBasicExpr 3 b)
 prettyBasicExpr p (BinExpr op lhs rhs) 
   = (if p >= binOpPrecedence op
      then parens

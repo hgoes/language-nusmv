@@ -33,6 +33,7 @@ data Constant = ConstBool Bool
 data BasicExpr = ConstExpr Constant
                | IdExpr ComplexIdentifier
                | BinExpr BinOp BasicExpr BasicExpr
+               | TernExpr BasicExpr BasicExpr BasicExpr
                | UnExpr UnOp BasicExpr
                | CaseExpr [(BasicExpr,BasicExpr)]
                | SetExpr [BasicExpr]

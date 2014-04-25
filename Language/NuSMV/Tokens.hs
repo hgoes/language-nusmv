@@ -48,6 +48,7 @@ data Symbol
                , bracketClosing :: Bool
                }
      | LNot | LAnd | LOr | LImpl | LEquiv | LEq | LNEq
+     | Tern
      | WConcat
      | LT | GT | LTE | GTE
      | Minus | Plus | Mult | Div

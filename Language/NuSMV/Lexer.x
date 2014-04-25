@@ -81,6 +81,7 @@ tokens :-
   "+"                                                               { sym Plus }
   "-"                                                               { sym Minus }
   "->"                                                              { sym LImpl }
+  "?"                                                               { sym Tern }
 
 {
 key :: Keyword -> String -> Token
