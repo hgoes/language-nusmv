@@ -82,6 +82,10 @@ tokens :-
   "-"                                                               { sym Minus }
   "->"                                                              { sym LImpl }
   "?"                                                               { sym Tern }
+  "*"                                                               { sym Mult }
+  "/"                                                               { sym Div }
+  "<<"                                                              { sym ShiftL }
+  ">>"                                                              { sym ShiftR }
 
 {
 key :: Keyword -> String -> Token

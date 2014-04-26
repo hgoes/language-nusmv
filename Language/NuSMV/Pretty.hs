@@ -133,6 +133,10 @@ prettyBinOp OpIn l r = l <+> text "in" <+> r
 prettyBinOp OpPlus l r = l <+> char '+' <+> r
 prettyBinOp OpMinus l r = l <+> char '-' <+> r
 prettyBinOp OpMod l r = l <+> text "mod" <+> r
+prettyBinOp OpMult l r = l <+> text "*" <+> r
+prettyBinOp OpDiv l r = l <+> text "/" <+> r
+prettyBinOp OpShiftL l r = l <+> text "<<" <+> r
+prettyBinOp OpShiftR l r = l <+> text ">>" <+> r
 prettyBinOp CTLAU l r = char 'A' <> brackets (l <+> char 'U' <+> r)
 prettyBinOp CTLEU l r = char 'E' <> brackets (l <+> char 'U' <+> r)
 prettyBinOp LTLU l r = l <+> char 'U' <+> r
@@ -166,10 +170,14 @@ binOpPrecedence op = case op of
   OpImpl -> 1
   OpEquiv -> 2
   OpUnion -> 9
+  OpShiftL -> 10
+  OpShiftR -> 10
   OpIn -> 8
-  OpPlus -> 10
-  OpMinus -> 10
-  OpMod -> 11
+  OpPlus -> 11
+  OpMinus -> 11
+  OpMod -> 12
+  OpMult -> 12
+  OpDiv -> 12
   LTLU -> 6
   LTLV -> 6
   _ -> 0

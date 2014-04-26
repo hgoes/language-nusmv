@@ -80,6 +80,10 @@ import Language.NuSMV.Syntax
   "!="           { Sym LNEq }
   "<->"          { Sym LEquiv }
   "?"            { Sym Tern }
+  "/"            { Sym Div }
+  "*"            { Sym Mult }
+  ">>"           { Sym ShiftR }
+  "<<"           { Sym ShiftL }
                  
 %left AG AF AX EX EF
 %left X F O G
@@ -91,8 +95,9 @@ import Language.NuSMV.Syntax
 %left "=" "!=" "<" "<=" ">" ">="
 %left in
 %left union
+%left "<<" ">>"
 %left "+" "-"
-%left mod
+%left "*" "/" mod
 %left "!"
 %left "[" "]" ","
 
@@ -214,7 +219,11 @@ basic_expr : constant                          { ConstExpr $1 }
            | basic_expr "<->" basic_expr       { BinExpr OpEquiv $1 $3 }
            | basic_expr "+" basic_expr         { BinExpr OpPlus $1 $3 }
            | basic_expr "-" basic_expr         { BinExpr OpMinus $1 $3 }
+           | basic_expr ">>" basic_expr         { BinExpr OpShiftR $1 $3 }
+           | basic_expr "<<" basic_expr         { BinExpr OpShiftL $1 $3 }
            | basic_expr mod basic_expr         { BinExpr OpMod $1 $3 }
+           | basic_expr "*" basic_expr         { BinExpr OpMult $1 $3 }
+           | basic_expr "/" basic_expr         { BinExpr OpDiv $1 $3 }
            | basic_expr "<" basic_expr         { BinExpr OpLT $1 $3 }
            | basic_expr "<=" basic_expr        { BinExpr OpLTE $1 $3 }
            | basic_expr ">" basic_expr         { BinExpr OpGT $1 $3 }

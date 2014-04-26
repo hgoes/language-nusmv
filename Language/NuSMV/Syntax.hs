@@ -44,7 +44,8 @@ data BinOp = OpEq | OpNeq
            | OpLT | OpLTE | OpGT | OpGTE
            | OpAnd | OpOr | OpImpl | OpEquiv
            | OpUnion | OpIn
-           | OpPlus | OpMinus | OpMod
+           | OpPlus | OpMinus | OpMod | OpMult | OpDiv
+           | OpShiftL | OpShiftR
            | CTLAU | CTLEU
            | LTLU | LTLV 
            deriving Show
