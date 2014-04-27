@@ -197,7 +197,8 @@ prettyConstant (ConstBool False) = text "FALSE"
 prettyConstant (ConstInteger i) = integer i
 prettyConstant (ConstId p) = text p
 prettyConstant (ConstWord wc) 
-  = char '0'
+  = (if wcValue wc < 0 then char '-' else empty)
+    <> char '0'
     <> (case wcSigned wc of
            Nothing -> empty
            Just False -> char 'u'
@@ -207,5 +208,5 @@ prettyConstant (ConstWord wc)
            Nothing -> empty
            Just b -> integer b)
     <> char '_'
-    <> integer (wcValue wc)
+    <> integer (abs $ wcValue wc)
 prettyConstant (ConstRange f t) = integer f <> text ".." <> integer t
