@@ -54,6 +54,7 @@ import Language.NuSMV.Syntax
   X              { Key KeyX }
   identifier     { Identifier $$ }
   integer_number { Number $$ }
+  word_const     { WordConst $$ }
   "("            { Sym (Bracket Parentheses False) }
   ")"            { Sym (Bracket Parentheses True) }
   "["            { Sym (Bracket Square False) }
@@ -205,6 +206,7 @@ enumeration_type_value : identifier     { Left $1 }
 constant : FALSE                              { ConstBool False }
          | TRUE                               { ConstBool True }
          | integer_number                     { ConstInteger $1 }
+         | word_const                         { ConstWord $1 }
          | integer_number ".." integer_number { ConstRange $1 $3 }
 
 basic_expr : constant                          { ConstExpr $1 }

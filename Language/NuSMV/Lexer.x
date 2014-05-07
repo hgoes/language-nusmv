@@ -100,7 +100,7 @@ parseWordConstant ('0':r1) = WordConst $ WordConstant sgn bts (read r3)
       _ -> (Nothing,r1)
     (bts,r3) = case break (=='_') r2 of
       ("",_:r) -> (Nothing,r)
-      (nr,_:r) -> (Just $ read nr,r)
+      ('d':nr,_:r) -> (Just $ read nr,r)
 
 sym :: Symbol -> String -> Token
 sym s _ = Sym s
